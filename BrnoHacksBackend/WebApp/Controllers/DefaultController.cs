@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using WebApp.Integration;
 
@@ -19,15 +20,9 @@ namespace WebApp.Controllers
 
         public IHttpActionResult GetCoordinates()
         {
-            var obj = new object[]
-            {
-                new { lat = 49.20, lng = 16.60},
-                new { lat = 49.21, lng = 16.61},
-                new { lat = 49.20, lng = 16.62},
-                new { lat = 49.20, lng = 16.60}
-            };
+            var t = new ZsjGeo().Load(new[] { 127752 });
 
-            return Ok(obj);
+            return Ok(t);
         }
     }
 }

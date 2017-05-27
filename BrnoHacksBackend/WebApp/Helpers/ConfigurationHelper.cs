@@ -13,5 +13,10 @@ namespace WebApp.Helpers
         {
             get { return ConfigurationManager.AppSettings["o2basepath"]; }
         }
+
+        public static string ZsjGeoPath
+        {
+            get { return ConfigurationManager.AppSettings["zsjgeopath"]; }
+        }
     }
 }
