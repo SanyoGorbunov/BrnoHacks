@@ -2,14 +2,11 @@
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using WebApp.Helpers;
 
 namespace WebApp.Integration
 {
     public class ZsjGeo
     {
-        private string _zsjGeoPath = ConfigurationHelper.ZsjGeoPath;
-
         public class ZsjGeoPoint
         {
             public int LocationId { get; set; }
@@ -24,11 +21,11 @@ namespace WebApp.Integration
             public float lng { get; set; }
         }
 
-        public IEnumerable<ZsjGeoPoint> Load(IEnumerable<int> locationIds)
+        public IEnumerable<ZsjGeoPoint> Load(string path, IEnumerable<int> locationIds)
         {
             var zsjGeoPoints = new List<ZsjGeoPoint>();
 
-            using (var stream = File.OpenRead(_zsjGeoPath))
+            using (var stream = File.OpenRead(path))
             {
                 using (var streamReader = new StreamReader(stream))
                 {

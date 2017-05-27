@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
+using WebApp.Helpers;
 using WebApp.Integration;
 
 namespace WebApp.Controllers
@@ -29,7 +32,9 @@ namespace WebApp.Controllers
 
         public IHttpActionResult GetCoords()
         {
-            var t = new ZsjGeo().Load(locationIds);
+            var zsjGeoPath = HostingEnvironment.MapPath(ConfigurationHelper.ZsjGeoPath);
+
+            var t = new ZsjGeo().Load(zsjGeoPath, locationIds);
 
             return Ok(t);
         }
