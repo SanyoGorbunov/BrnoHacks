@@ -9,10 +9,7 @@
             $.ajax({
                 dataType: 'jsonp',
                 type: 'GET',
-                url: '/api/location/getstats?ageGroup=1&occurenceType=1&gender=1&hour=0',
-                beforeSend: function (request) {
-                    request.setRequestHeader("Authority", 'your_token_here');
-                },
+                url: '/api/location/getstats?authorizationToken=QTnbKY5FyCRDjKj4NTD7&ageGroup=1&occurenceType=1&gender=1&hour=0',
                 success: function(x) {
                     debugger;
                 },

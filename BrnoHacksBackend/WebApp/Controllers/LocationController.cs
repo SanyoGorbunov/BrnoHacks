@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
+using WebApp.DAL;
 using WebApp.Helpers;
 using WebApp.Integration;
 
@@ -14,9 +15,9 @@ namespace WebApp.Controllers
     {
         private O2Api _o2Api = new O2Api();
 
-        public IHttpActionResult GetStats(IEnumerable<int> locationIds, int? ageGroup = null, int? occurenceType = null, int? gender = null, int? hour = null)
+        public IHttpActionResult GetStats(IEnumerable<int> locationIds, string authorizationToken = null, int? ageGroup = null, int? occurenceType = null, int? gender = null, int? hour = null)
         {
-            CheckAuthorization();
+            CheckAuthorization(authorizationToken);
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
@@ -39,13 +40,9 @@ namespace WebApp.Controllers
             return Ok(lst);
         }
 
-        private void CheckAuthorization()
+        private void CheckAuthorization(string authorizationToken)
         {
-            IEnumerable<string> headerValues;
-
-            if (!Request.Headers.TryGetValues("Authority", out headerValues) ||
-                !headerValues.Any() ||
-                !string.Equals(headerValues.First(), ConfigurationHelper.AuthorizationToken, StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(authorizationToken, ConfigurationHelper.AuthorizationToken, StringComparison.InvariantCultureIgnoreCase))
             {
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
@@ -58,6 +55,13 @@ namespace WebApp.Controllers
             var t = new ZsjGeo().Load(zsjGeoPath, LocationHelper.LocationIds);
 
             return Ok(t);
+        }
+
+        public IHttpActionResult GetTest()
+        {
+            GoVisiblyContext ctx = new GoVisiblyContext();
+
+            return Ok(ctx.ZsjLocations);
         }
     }
 }
