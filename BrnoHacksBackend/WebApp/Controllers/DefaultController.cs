@@ -1,36 +1,19 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net;
 using System.Web.Http;
-using WebApp.Helpers;
+using WebApp.Integration;
 
 namespace WebApp.Controllers
 {
     public class DefaultController : ApiController
     {
+        private O2Api _o2Api = new O2Api();
+
         public IHttpActionResult GetProduct(int id)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
-            string result;
+            var result = _o2Api.GetCountOfPeople(127752, 2, 1, 10);
 
-            using (var client = new HttpClient())
-            {
-                var request = new HttpRequestMessage
-                {
-                    RequestUri =
-                        new Uri(
-                            ConfigurationHelper.O2BasePath + "/age/127752?ageGroup=2&occurenceType=1&hour=10"),
-                    Method = HttpMethod.Get
-                };
-
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                request.Headers.Add("apikey", ConfigurationHelper.ApiKey);
-
-                result = client.SendAsync(request).Result.Content.ReadAsStringAsync().Result;
-            }
             return Ok(result);
         }
 
