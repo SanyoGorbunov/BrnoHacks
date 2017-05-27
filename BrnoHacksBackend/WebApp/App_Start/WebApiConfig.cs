@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using WebApiContrib.Formatting.Jsonp;
 
 namespace WebApp
 {
@@ -21,6 +22,8 @@ namespace WebApp
 
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
+
+            config.AddJsonpFormatter(config.Formatters.JsonFormatter, "callback");
         }
     }
 }

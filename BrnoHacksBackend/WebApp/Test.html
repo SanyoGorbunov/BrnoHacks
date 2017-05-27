@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $.ajax({
+                dataType: 'jsonp',
+                type: 'GET',
+                url: 'http://govisibly.gear.host/api/location/getcoords',
+                success: function(x) {
+                    debugger;
+                },
+                error: function(x) {
+                    debugger;
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

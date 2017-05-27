@@ -88,7 +88,9 @@ namespace WebApp.Integration
 
                                 if (lat.HasValue)
                                 {
-                                    geoPoints.Add(new GeoPoint { lat = lat.Value, lng = val });
+                                    geoPoints.Add(new GeoPoint { lat = val, lng = lat.Value });
+
+                                    lat = null;
                                 }
                                 else
                                 {

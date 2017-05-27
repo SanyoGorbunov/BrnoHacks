@@ -12,15 +12,13 @@ namespace WebApp.Controllers
     {
         private O2Api _o2Api = new O2Api();
 
-        private IEnumerable<int> locationIds = new [] {127752};
-
         public IHttpActionResult GetStats(int ageGroup, int hour)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
             var lst = new List<object>();
 
-            foreach (var locationId in locationIds)
+            foreach (var locationId in LocationHelper.LocationIds)
             {
                 var result = _o2Api.GetCountOfPeople(locationId, ageGroup, 1, hour);
 
@@ -34,7 +32,7 @@ namespace WebApp.Controllers
         {
             var zsjGeoPath = HostingEnvironment.MapPath(ConfigurationHelper.ZsjGeoPath);
 
-            var t = new ZsjGeo().Load(zsjGeoPath, locationIds);
+            var t = new ZsjGeo().Load(zsjGeoPath, LocationHelper.LocationIds);
 
             return Ok(t);
         }
