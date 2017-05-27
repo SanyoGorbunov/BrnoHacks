@@ -18,5 +18,10 @@ namespace WebApp.Helpers
         {
             get { return ConfigurationManager.AppSettings["zsjgeopath"]; }
         }
+        
+        public static string AuthorizationToken
+        {
+            get { return ConfigurationManager.AppSettings["authtoken"]; }
+        }
     }
 }

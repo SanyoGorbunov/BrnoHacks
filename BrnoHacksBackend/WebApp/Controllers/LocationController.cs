@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Hosting;
@@ -12,20 +14,41 @@ namespace WebApp.Controllers
     {
         private O2Api _o2Api = new O2Api();
 
-        public IHttpActionResult GetStats(int ageGroup, int hour)
+        public IHttpActionResult GetStats(IEnumerable<int> locationIds, int? ageGroup = null, int? occurenceType = null, int? gender = null, int? hour = null)
         {
+            CheckAuthorization();
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
             var lst = new List<object>();
 
-            foreach (var locationId in LocationHelper.LocationIds)
+            var locationsIdsToCheck = LocationHelper.LocationIds;
+
+            if (locationIds != null)
             {
-                var result = _o2Api.GetCountOfPeople(locationId, ageGroup, 1, hour);
+                locationsIdsToCheck = locationsIdsToCheck.Intersect(locationIds);
+            }
+
+            foreach (var locationId in locationsIdsToCheck)
+            {
+                var result = _o2Api.GetCountOfPeople(locationId, ageGroup.Value, occurenceType.Value, hour.Value);
 
                 lst.Add(new { count = result, locationId });
             }
 
             return Ok(lst);
+        }
+
+        private void CheckAuthorization()
+        {
+            IEnumerable<string> headerValues;
+
+            if (!Request.Headers.TryGetValues("Authority", out headerValues) ||
+                !headerValues.Any() ||
+                !string.Equals(headerValues.First(), ConfigurationHelper.AuthorizationToken, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
         }
 
         public IHttpActionResult GetCoords()

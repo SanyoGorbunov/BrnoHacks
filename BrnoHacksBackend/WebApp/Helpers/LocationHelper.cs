@@ -6,7 +6,7 @@ namespace WebApp.Helpers
     {
         private static IEnumerable<int> _locationIds = new[]
         {
-            19, 20
+            10006, 10031, 10014, 10022
         };
 
         public static IEnumerable<int> LocationIds

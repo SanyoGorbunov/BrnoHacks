@@ -12,8 +12,12 @@ namespace WebApp.Integration
 
         private string _apiKey = ConfigurationHelper.ApiKey;
 
+        private Random _random = new Random();
+
         public int GetCountOfPeople(int locationId, int ageGroup, int occurenceType, int hour)
         {
+            return _random.Next(100, 200);
+
             using (var client = new HttpClient())
             {
                 var request = new HttpRequestMessage

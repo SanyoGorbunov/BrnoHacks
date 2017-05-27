@@ -9,7 +9,10 @@
             $.ajax({
                 dataType: 'jsonp',
                 type: 'GET',
-                url: 'http://govisibly.gear.host/api/location/getcoords',
+                url: '/api/location/getstats?ageGroup=1&occurenceType=1&gender=1&hour=0',
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authority", 'your_token_here');
+                },
                 success: function(x) {
                     debugger;
                 },
