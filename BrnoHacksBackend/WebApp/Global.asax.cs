@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using WebApp.Helpers;
+using WebApp.Integration;
 
 namespace WebApp
 {

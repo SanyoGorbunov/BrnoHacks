@@ -23,5 +23,20 @@ namespace WebApp.Helpers
         {
             get { return ConfigurationManager.AppSettings["authtoken"]; }
         }
+
+        public static string CsvGeoPath
+        {
+            get { return ConfigurationManager.AppSettings["csvgeopath"]; }
+        }
+
+        public static string O2SampleAge
+        {
+            get { return ConfigurationManager.AppSettings["02sampleage"]; }
+        }
+
+        public static string O2SampleGender
+        {
+            get { return ConfigurationManager.AppSettings["02samplegender"]; }
+        }
     }
 }
