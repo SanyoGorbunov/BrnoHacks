@@ -180,5 +180,35 @@ namespace WebApp.Controllers
 
             return Ok();
         }
+
+        public IHttpActionResult GetVehicles()
+        {
+            var str = File.ReadAllText(ConfigurationHelper.VehiclesPath);
+
+            var jArray = JArray.Parse(str);
+
+            var lst = new List<VehicleData>();
+
+            foreach (var jObj in jArray)
+            {
+                lst.Add(new VehicleData
+                {
+                    VehicleId = jObj["vehicleId"].Value<int>(),
+                    Course = jObj["course"].Value<string>(),
+                    AsAt = new DateTime(2017, 5, 28, 12, 52, 0),
+                    //Bearing = jObj["bearing"].Value<int>(),
+                    DateCreated = DateTime.UtcNow,
+                    HeadSign = jObj["headsign"].Value<string>(),
+                    Lat = jObj["latitude"].Value<double>(),
+                    Lng = jObj["longitude"].Value<double>(),
+                    Route = jObj["route"].Value<int>()
+                });
+            }
+
+            _ctx.VehicleDatas.AddRange(lst);
+            _ctx.SaveChanges();
+
+            return Ok();
+        }
     }
 }

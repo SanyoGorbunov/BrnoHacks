@@ -1,0 +1,591 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <title>GoVisibly!</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//jqueryui.com/resources/demos/style.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="canvasjs.min.js"></script>
+
+
+    <style>
+        #custom-handle {
+            width: 3em;
+            height: 1.6em;
+            top: 25%;
+            margin-top: -.8em;
+            text-align: center;
+            line-height: 1.6em;
+        }
+    </style>
+
+    <style>
+        #parent {
+            width: 300px;
+            height: 230px;
+            margin: 10px auto;
+            padding: 5px;
+            border: 1px solid #777;
+            background-color: #aecfff;
+            text-align: center;
+        }
+        .positionable {
+            position: absolute;
+            display: block;
+            right: 0;
+            bottom: 0;
+            background-color: #bcd5e6;
+            text-align: center;
+        }
+        #positionable1 {
+            width: 75px;
+            height: 75px;
+        }
+        #positionable2 {
+            width: 120px;
+            height: 40px;
+        }
+        select, input {
+            margin-left: 15px;
+        }
+    </style>
+
+    <style>
+        #detailedInfo {
+            width: 300px;
+            height: 700px;
+            margin: 10px auto;
+            padding: 5px;
+            border: 1px solid #777;
+            background-color: #aecfff;
+            text-align: center;
+        }
+        .positionable {
+            position: absolute;
+            display: block;
+            right: 0;
+            bottom: 0;
+            background-color: #bcd5e6;
+            text-align: center;
+        }
+        #positionable1 {
+            width: 75px;
+            height: 75px;
+        }
+        #positionable2 {
+            width: 120px;
+            height: 40px;
+        }
+        select, input {
+            margin-left: 15px;
+        }
+    </style>
+
+    <style>
+        .ui-controlgroup-vertical {
+            width: 150px;
+        }
+        .ui-controlgroup.ui-controlgroup-vertical > button.ui-button,
+        .ui-controlgroup.ui-controlgroup-vertical > .ui-controlgroup-label {
+            text-align: center;
+        }
+        #car-type-button {
+            width: 120px;
+        }
+        .ui-controlgroup-horizontal .ui-spinner-input {
+            width: 20px;
+        }
+    </style>
+
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+
+    <script>
+
+
+        function showChart(values) {
+
+
+
+            var carData=[];
+            for(i=0;i<values.length;i++) {
+                carData.push({y:(values[i].transport),label: ''+i});
+            }
+            var cartTransport = new CanvasJS.Chart("chartContainerTransport", {
+                title: {
+                    text: "Public transport"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: carData
+                }]
+            });
+            cartTransport.render();
+
+
+            var malesData=[];
+            for(i=0;i<values.length;i++) {
+                malesData.push({y:(values[i].visit.male),label: ''+i});
+            }
+            var chartMales = new CanvasJS.Chart("chartContainerMales", {
+                title: {
+                    text: "Males all ages"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: malesData
+                }]
+            });
+            chartMales.render();
+
+
+
+            var femalesData=[];
+            for(i=0;i<values.length;i++) {
+                femalesData.push({y:(values[i].visit.female),label: ''+i});
+            }
+            var chartFemales = new CanvasJS.Chart("chartContainerFemales", {
+                title: {
+                    text: "Females all ages"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: femalesData
+                }]
+            });
+            chartFemales.render();
+
+            var g1Data=[];
+            for(i=0;i<values.length;i++) {
+                g1Data.push({y:(values[i].visit.children),label: ''+i});
+            }
+            var chartG1 = new CanvasJS.Chart("chartContainerGender1", {
+                title: {
+                    text: "Children"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: g1Data
+                }]
+            });
+            chartG1.render();
+
+
+            var g2Data=[];
+            for(i=0;i<values.length;i++) {
+                g2Data.push({y:(values[i].visit.middleage),label: ''+i});
+            }
+            var chartG2 = new CanvasJS.Chart("chartContainerGender2", {
+                title: {
+                    text: "Middleage"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: g2Data
+                }]
+            });
+            chartG2.render();
+
+            var g3Data=[];
+            for(i=0;i<values.length;i++) {
+                g3Data.push({y:(values[i].visit.seniors),label: ''+i});
+            }
+            var chartG3 = new CanvasJS.Chart("chartContainerGender3", {
+                title: {
+                    text: "Seniors"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: g3Data
+                }]
+            });
+            chartG3.render();
+
+
+        }
+
+
+        $(function() {
+            function position() {
+                $(".positionable").position({
+                    of: $("#parent"),
+                    my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
+                    at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
+                    collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
+                });
+            }
+
+            $(".positionable").css("opacity", 0.5);
+
+            $("select, input").bind("click keyup change", position);
+
+            $("#parent").draggable({
+                drag: position
+            });
+
+            position();
+        });
+
+
+
+        $(function() {
+            function position() {
+                $(".positionable").position({
+                    of: $("#detailedInfo"),
+                    my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
+                    at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
+                    collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
+                });
+            }
+
+            $(".positionable").css("opacity", 0.5);
+
+            $("select, input").bind("click keyup change", position);
+
+            $("#detailedInfo").draggable({
+                drag: position
+            });
+
+            position();
+        });
+
+
+        $( function() {
+            var handle = $( "#custom-handle" );
+            $( "#slider" ).slider({
+                create: function() {
+                    handle.text( $( this ).slider( "value" ) );
+                },
+                slide: function( event, ui ) {
+                    handle.text( ui.value );
+                }
+            });
+            // Setter
+            $( "#slider" ).slider( "option", "max", 23 );
+        } );
+
+
+
+
+        $( function() {
+            $( ".widget input[type=submit], .widget a, .widget button" ).button();
+            $( "button, input, a" ).click( function( event ) {
+                event.preventDefault();
+            } );
+        } );
+    </script>
+</head>
+<body>
+
+
+
+<div id="parent" style="z-index: 1; position: fixed; right: 20px; top: 20px;">
+
+    <fieldset>
+        <legend>Target auditory</legend>
+        <div class="controlgroup">
+            <p></p>
+            <select id="agegroup">
+                <option value="6">all males</option>
+                <option value="7">all females</option>
+                <option value="1">kids(under 13)</option>
+                <option value="2">youth(14-18)</option>
+                <option value="3">students(19-24)</option>
+                <option value="4">workers(25-45)</option>
+                <option value="5">old(over 45)</option>
+
+            </select>
+            <select id="visitors">
+                <option value="2">visitors</option>
+                <option value="1">transit</option>
+
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Time of a day:</legend>
+        <div class="dayOfTime">
+            <p></p>
+            <div id="slider">
+                <div id="custom-handle" class="ui-slider-handle"></div>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <p></p>
+    <div class="widget">
+
+
+    </div>
+    <div class="widget">
+
+        <input type="submit" value="PLAY" id="btnPlay" >
+        <input type="submit" value="STOP" id="btnStop">
+        <input type="submit" value="SHOW" id="btnStats">
+    </div>
+</div>
+
+<div id="detailedInfo" style="z-index: 1; position: fixed; right: 20px; top: 280px;">
+
+    <div class="controlgroup">
+        <p></p>
+        <div id="chartContainerTransport" style="height: 100px; width: 300px;"></div>
+        <div id="chartContainerMales" style="height: 100px; width: 300px;"></div>
+        <div id="chartContainerFemales" style="height: 100px; width: 300px;"></div>
+        <div id="chartContainerGender1" style="height: 100px; width: 300px;"></div>
+        <div id="chartContainerGender2" style="height: 100px; width: 300px;"></div>
+        <div id="chartContainerGender3" style="height: 100px; width: 300px;"></div>
+    </div>
+</div>
+
+
+<div id="map" style="z-index: 0;"></div>
+
+
+<script>
+
+
+
+
+
+
+
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    var totalSeconds = 0;
+    setInterval(setTime, 1000);
+
+    function setTime()
+    {
+        ++totalSeconds;
+        if (isTimerEnable){
+
+            if (timer>=24){
+                isTimerEnable=0;
+                $( "#slider" ).slider( "option", "value", 0 );
+
+            }
+            else{
+                $( "#slider" ).slider( "option", "value", timer );
+                getStats();
+                timer +=1;
+            }
+        }
+        //if (poly1 != null) refreshPolygons();
+        //secondsLabel.innerHTML = pad(totalSeconds%60);
+        //minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+    }
+
+    function pad(val)
+    {
+        var valString = val + "";
+        if(valString.length < 2)
+        {
+            return "0" + valString;
+        }
+        else
+        {
+            return valString;
+        }
+    }
+
+    $(document).ready(function(){                            // по завершению загрузки страницы
+        //$('#btnClick').click(getPolygons);
+        $('#btnStats').click(getStats);
+        $('#btnPlay').click(playStart);
+        $('#btnStop').click(playStop);
+        $( function() {
+            $( "#slider" ).slider();
+        } );
+
+
+
+        $( function() {
+            $( ".controlgroup" ).controlgroup()
+            $( ".controlgroup-vertical" ).controlgroup({
+                "direction": "vertical"
+            });
+        } );
+
+        //uploadJsonFromFile();
+        getPolygons();
+    });
+
+    function getStats() {
+
+        var requestStr = "http://govisibly.gear.host/api/location/getstats?authorizationToken=QTnbKY5FyCRDjKj4NTD7"+($('#agegroup').val()<=5?('&ageGroup='+$('#agegroup').val()):('&gender='+(($('#agegroup').val()-5))))+"&occurenceType="+$('#visitors').val()+"&hour="+ $( "#slider" ).slider( "option", "value" );
+        $.ajax({
+            dataType: 'jsonp',
+            type: 'GET',
+            url: requestStr,
+            success: function(x) {
+                for(i=0;i<polyArray.length;i++){
+                    for(j=0;j<x.length;j++){
+                        if (polyArray[i][1] == x[j].LocationId){
+                            setPolygonOpacity(polyArray[i][0], x[j].Count>2000?0.8:(x[j].Count/2500));
+                        }
+                    }
+                }
+                //showChart();
+            },
+            error: function(x) {
+                debugger;
+            }
+        });
+
+    }
+
+
+    function getPolygons() {
+        $('#results').html('I asked response');
+        $.ajax({
+            url : 'http://govisibly.gear.host/api/location/getcoords',
+            dataType : 'jsonp',
+            type: 'GET',
+            success : function ajaxResponsePolygons(data) {
+                polyArray=[];
+                for (i = 0; i < data.length; i++) {
+                    polyArray.push([cleatePolygon(data[i],0),data[i].LocationId,data[i].Name]);
+                }
+            },
+            error: function(x) {
+                debugger;
+            }
+        })
+        return false;
+    }
+
+
+
+    function uploadJsonFromFile() {
+        $.getJSON("coords.json", function(data) {
+            polyArray=[];
+            for (i = 0; i < data.length; i++) { //data.length
+                polyArray.push([cleatePolygon(data[i],0),data[i].LocationId,data[i].Name]);
+            }
+        });
+
+    }
+    var valueGroup = document.getElementById("valueGroup");
+    var valueGender = document.getElementById("valueGender");
+    var valueTransit = document.getElementById("valueTransit");
+
+    var polyArrayRaw;
+    var polyArray;
+    var statArray;
+    var map;
+
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: {lat: 49.2024436, lng: 16.6089034},
+            mapTypeId: 'terrain'
+        });
+
+    }
+
+    function getNameByPolygonId(polygonId) {
+        for(i=0;i<polyArray.length;i++){
+            if (polyArray[i][1]==polygonId) return polyArray[i][2];
+        }
+        return 'not found'
+    }
+    function cleatePolygon(polygon,opacity) {
+        //var tempJson = '[{"LocationId":127752,"Coordinates":[{"lat":50.0431557,"lng":14.4623537},{"lat":50.04318,"lng":14.4622641},{"lat":50.0437546,"lng":14.4611692},{"lat":50.04582,"lng":14.4564743},{"lat":50.0477333,"lng":14.452486},{"lat":50.0503273,"lng":14.4473248},{"lat":50.05073,"lng":14.4465618},{"lat":50.0512,"lng":14.4454107},{"lat":50.0517235,"lng":14.4466848},{"lat":50.05201,"lng":14.4471922},{"lat":50.05259,"lng":14.4477148},{"lat":50.0523033,"lng":14.4481239},{"lat":50.0530434,"lng":14.4492},{"lat":50.052845,"lng":14.4501686},{"lat":50.05297,"lng":14.4508047},{"lat":50.0533752,"lng":14.4507074},{"lat":50.0534019,"lng":14.4515219},{"lat":50.053463,"lng":14.4517384},{"lat":50.05341,"lng":14.4524374},{"lat":50.053463,"lng":14.4526777},{"lat":50.0531349,"lng":14.4528942},{"lat":50.05272,"lng":14.4532747},{"lat":50.0524445,"lng":14.4538364},{"lat":50.051693,"lng":14.4545736},{"lat":50.0516243,"lng":14.4572811},{"lat":50.0505943,"lng":14.4586563},{"lat":50.0501366,"lng":14.4588242},{"lat":50.0495224,"lng":14.4589691},{"lat":50.04857,"lng":14.4596786},{"lat":50.0479469,"lng":14.4600372},{"lat":50.0472679,"lng":14.4603653},{"lat":50.0459862,"lng":14.4608488},{"lat":50.0458,"lng":14.4608812},{"lat":50.045372,"lng":14.46124},{"lat":50.0439949,"lng":14.4621906},{"lat":50.0436859,"lng":14.4623623},{"lat":50.0431557,"lng":14.4623537}]}]'
+        var polygone = new google.maps.Polygon({
+            paths: polygon.Coordinates,
+            strokeColor: '#224aff',
+            strokeOpacity: 1,
+            strokeWeight: 2,
+            fillColor: '#224aff',
+            fillOpacity: opacity,
+            content: ''+polygon.LocationId
+        });
+        polygone.setMap(map);
+        polygone.addListener('click', showArrays);
+        infoWindow = new google.maps.InfoWindow;
+        return polygone;
+    }
+
+    function showArrays(event) {
+        // Since this polygon has only one path, we can call getPath() to return the
+        // MVCArray of LatLngs.
+        var vertices = this.getPath();
+
+        // Replace the info window's content and position.
+        infoWindow.setContent(getNameByPolygonId(this.content));
+        infoWindow.setPosition(event.latLng);
+
+        var requestStr = "http://govisibly.gear.host/api/location/GetStatsByLocation?authorizationToken=QTnbKY5FyCRDjKj4NTD7&locationid="+this.content;
+        $.ajax({
+
+            dataType: 'jsonp',
+            type: 'GET',
+            url: requestStr,
+            success: function(x) {
+                showChart(x);
+                infoWindow.open(map);
+            },
+            error: function(x) {
+                debugger;
+            }
+        });
+    }
+
+    function setPolygonOpacity(polygon, opacity) {
+        polygon.setMap(null);
+        polygon.fillOpacity = opacity;
+        polygon.setMap(map);
+
+    }
+    function clearPoligons() {
+        for(i=0;i<polyArray.length;i++){
+            polyArray[i].setMap(null);
+        }
+    }
+
+    var timer=0;
+    var isTimerEnable=0;
+
+    function playStop() {
+        isTimerEnable=0;
+    }
+
+    function playStart() {
+        timer=0;
+        isTimerEnable=1;
+    }
+
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC51KCWZl9slImwC8cnHhxnbeGIQioXK6M&callback=initMap">
+</script>
+</body>
+</html>

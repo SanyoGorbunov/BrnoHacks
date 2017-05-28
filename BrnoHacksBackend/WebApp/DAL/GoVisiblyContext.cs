@@ -14,6 +14,8 @@ namespace WebApp.DAL
 
         public DbSet<OTwoData> O2Datas { get; set; }
 
+        public DbSet<VehicleData> VehicleDatas { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

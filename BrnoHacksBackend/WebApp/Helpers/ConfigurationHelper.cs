@@ -38,5 +38,13 @@ namespace WebApp.Helpers
         {
             get { return ConfigurationManager.AppSettings["02samplegender"]; }
         }
+
+        public static string VehiclesPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["vehiclespath"];
+            }
+        }
     }
 }
